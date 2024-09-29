@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVault</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="64x64">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background-color: rgba(52, 58, 64, 0.9);
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .main-container {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section-container {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .flashes li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .flashes .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .flashes .warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .flashes .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flashes .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        h2 {
+            color: white;
+        }
+
+        h3 {
+            color: white;
+        }
+
+        .section-container a.btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .section-row {
+            display: flex;
+            justify-content: left;
+            margin-top: 20px;
+        }
+
+        .section-container:last-child {
+            margin-right: 0;
+        }
+
+        .color {
+            color: red;
+            font-size: 16px;
+            transition: color 0.3s ease, font-size 0.3s ease;
+            text-decoration: none;
+        }
+
+        .color:hover {
+            color: red;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .color1 {
+            color: red;
+            font-size: 16px;
+            transition: color 0.3s ease, font-size 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo1 {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo1:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <video class="video-background" autoplay loop muted>
+        <source src="{{ url_for('static', filename='videos/Cloud Security.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="content">
+        <header class="bg-dark text-white p-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1><a href="#" class="logo1">SecureVault</a></h1>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <nav>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="{{ url_for('logout') }}" class="color">Logout</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-container container">
+            <h2>Welcome, {{ username }}!</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="container section-row">
+            <!-- Password Management Section -->
+            <div class="section-container">
+                <h3>Password Management</h3>
+                <a href="{{ url_for('add_password') }}" class="btn btn-primary">Add Password</a>
+                <a href="{{ url_for('view_passwords') }}" class="btn btn-primary">View Passwords</a>
+            </div>
+
+            <!-- Document Management Section -->
+            <div class="section-container">
+                <h3>Document Management</h3>
+                <a href="{{ url_for('upload_document') }}" class="btn btn-primary">Upload Document</a>
+                <a href="{{ url_for('view_documents') }}" class="btn btn-primary">View Documents</a>
+            </div>
+
+            <!-- API Key Management Section -->
+            <div class="section-container">
+                <h3>API Key Management</h3>
+                <a href="{{ url_for('add_api_key') }}" class="btn btn-primary">Add API Key</a>
+                <a href="{{ url_for('view_api_keys') }}" class="btn btn-primary">View API Keys</a>
+            </div>
+
+            <!-- Photo Management Section -->
+            <div class="section-container">
+                <h3>Photo Management</h3>
+                <a href="{{ url_for('upload_photo') }}" class="btn btn-primary">Upload Photo</a>
+                <a href="{{ url_for('view_photos') }}" class="btn btn-primary">View Photos</a>
+            </div>
+
+            <!-- Video Management Section -->
+            <div class="section-container">
+                <h3>Video Management</h3>
+                <a href="{{ url_for('upload_video') }}" class="btn btn-primary">Upload Video</a>
+                <a href="{{ url_for('view_videos') }}" class="btn btn-primary">View Videos</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

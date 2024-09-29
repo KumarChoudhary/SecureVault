@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="64x64">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .header {
+            background-color: rgba(52, 58, 64, 0.9); /* Semi-transparent white background */
+            padding: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: teal ;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 7px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px; /* Adjust max-width as needed */
+            margin: 100px auto 50px; /* Center the container and adjust margin-top for the header */
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="color"],
+        form input[type="file"] {
+            width: calc(100% - 22px); /* Adjust the width of inputs to fit inside the container */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            display: block;
+            margin: 0 auto; /* Center the input elements */
+        }
+        form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+        form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-bg">
+        <source src="{{ url_for('static', filename='videos/video_1.mp4') }}" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <header class="header">
+        <h1>SecureVault Registration</h1>
+    </header>
+    <div class="container">
+        <form action="{{ url_for('register') }}" method="post" enctype="multipart/form-data">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br>
+            <label>Select Colors:</label>
+            <input type="color" name="colors" required><br>
+            <input type="color" name="colors" required><br>
+            <input type="color" name="colors" required><br>
+            <label>Select Image:</label>
+            <input type="file" name="image" accept="image/*" required><br>
+            <button type="submit">Register</button>
+        </form>
+        <a href="{{ url_for('index') }}">Back</a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add API Key</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="64x64">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white; /* White background */
+            position: relative; /* Needed for positioning the SVG container */
+        }
+        header {
+            background-color: rgba(52, 58, 64, 0.9); /* Slightly transparent to show background behind */
+            padding: 10px 0;
+            width: 100%;
+            z-index: 1; /* Ensure header is on top */
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+        }
+        .content-container {
+            flex: 1; /* Allows the container to grow and fill the available space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            position: relative; /* Needed for absolutely positioned elements */
+            z-index: 2; /* Ensure content is above the SVG */
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            color: white;
+            z-index: 3; /* form container is above other content */
+        }
+        h1, h2 {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #ddd;
+        }
+        .form-control, .form-control-file {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            color: #333;
+        }
+        .form-control:focus, .form-control-file:focus {
+            background-color: rgba(255, 255, 255, 1);
+            outline: none;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 100%;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+        .bg-svg-container {
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            width: 500px; /* Adjust the width as needed */
+            height: auto;
+            z-index: 0; /* Ensure SVG is behind other content */
+        }
+        .color1:hover {
+    color: red;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.color1 {
+    color: red;
+    font-size: 16px;
+    transition: color 0.3s ease, font-size 0.3s ease; /* Add transition here */
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="header-container container">
+            <h1>SecureVault</h1>
+            <nav>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="{{ url_for('logout') }}" class="color1">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-container">
+        <div class="bg-svg-container">
+            <img src="{{ url_for('static', filename='img/Pass_1.svg') }}" alt="Background Image" class="bg-svg">
+        </div>
+        <div class="form-container">
+            <h2>Add API Key</h2>
+            <form action="{{ url_for('add_api_key') }}" method="POST">
+                <div class="form-group">
+                    <label for="service_name">Service Name</label>
+                    <input type="text" class="form-control" id="service_name" name="service_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="api_key">API Key</label>
+                    <input type="text" class="form-control" id="api_key" name="api_key" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-3">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

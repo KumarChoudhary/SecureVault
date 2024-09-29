@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" sizes="64x64">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='img/add_video.png') }}');
+            background-size: 1000px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: rgba(52, 58, 64, 0.9); /* Slightly transparent to show background behind */
+            padding: 10px 0;
+            width: 100%;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+        }
+        .header-container nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+        }
+        .header-container nav ul li {
+            margin-left: 15px;
+        }
+        .header-container nav ul li a {
+            color: inherit; /* Use this to inherit the color defined in the classes */
+            text-decoration: none;
+            transition: color 0.3s ease, font-size 0.3s ease; /* Add transition here */
+        }
+        .header-container nav ul li a:hover {
+            text-decoration: none; /* Ensure no underline on hover */
+        }
+
+        .goto {
+            color: green !important;
+            font-size: 16px;
+        }
+        .goto:hover {
+            color: limegreen;
+            font-size: 18px;
+        }
+
+        .logout {
+            color: red !important;
+            font-size: 16px;
+        }
+        .logout:hover {
+            color: darkred;
+            font-size: 18px;
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px; /* Adjusted max-width for a wider box */
+            width: 100%;
+            color: white;
+            position: absolute; /* Allows positioning with top/right/bottom/left */
+            top: 20%; /* Adjust the top position */
+            left: 19%; /* Adjust the left position */
+        }
+        h2 {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-group label {
+            color: white;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Blue color for primary actions */
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="header-container container">
+            <h1>SecureVault</h1>
+            <nav>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="{{ url_for('dashboard') }}" class="goto">Go to Dashboard</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('logout') }}" class="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <h2>Upload Video</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="video_name">Video Name</label>
+                <input type="text" class="form-control" id="video_name" name="video_name" required>
+            </div>
+            <div class="form-group">
+                <label for="video">Video</label>
+                <input type="file" class="form-control-file" id="video" name="video" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</body>
+</html>
